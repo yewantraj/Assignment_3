@@ -46,7 +46,7 @@ app.listen(port, () => {
 app.get('/', (request, response) => {
     response.json(
         {
-            info: 'Backend for Movie Database, set up by Chris K!'
+            info: 'Backend for Movie Database!'
         }
     )
 })

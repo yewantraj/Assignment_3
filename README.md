@@ -1,12 +1,9 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/1bry_Q4E)
-# desn3038-w25-eb
-
 ## Database credentials
 
 - Hostname: `gbc.goodcodeclub.com`
 - Username: `w25_{STUDENTID}`, where `{STUDENTID}` is your student ID (ex. `w25_101010101`)
 - Password: `w25_{STUDENTID}`
-- Database: `w25_{STUDENTID}_e4` (note `_e4` at the end)
+- Database: `w25_{STUDENTID}_a3` (note `_a3` at the end)
 
 ## Checklist / before you begin
 
