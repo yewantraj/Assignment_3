@@ -1,0 +1,563 @@
+openapi: '3.1.1'
+info:
+  title: Movies API
+  version: '1.0'
+servers:
+  - url: https://{url}
+    variables:
+      url:
+        default: https://n4j1tq9b-3001.use.devtunnels.ms/
+paths:
+  # Root endpoint
+  /:
+    get:
+      description: Root endpoint that provides basic API information
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  info:
+                    type: string
+  
+  # Users endpoints
+  /v1/users/list:
+    get:
+      description: List all active users in the Movie Database
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        fname:
+                          type: string
+                        lname:
+                          type: string
+                        email:
+                          type: string
+  
+  /v1/users/get:
+    get:
+      description: Fetch a specific user in the Movie Database
+      parameters:
+        - name: id
+          in: query
+          description: ID of user
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        fname:
+                          type: string
+                        lname:
+                          type: string
+                        email:
+                          type: string
+  
+  /v1/users/create:
+    post:
+      description: Create a new user in the Movie Database
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - fname
+                - lname
+                - email
+              properties:
+                fname:
+                  type: string
+                lname:
+                  type: string
+                email:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+  
+  /v1/users/remove:
+    post:
+      description: Mark a user as removed in the Movie Database
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+  
+  # Directors endpoints
+  /v1/directors/list:
+    get:
+      description: List all directors in the Movie Database
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        fname:
+                          type: string
+                        lname:
+                          type: string
+  
+  /v1/directors/get:
+    get:
+      description: Fetch a specific director in the Movie Database
+      parameters:
+        - name: id
+          in: query
+          description: ID of director
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        fname:
+                          type: string
+                        lname:
+                          type: string
+  
+  # Actors endpoints
+  /v1/actors/list:
+    get:
+      description: List all actors in the Movie Database
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        fname:
+                          type: string
+                        lname:
+                          type: string
+  
+  /v1/actors/get:
+    get:
+      description: Fetch a specific actor in the Movie Database
+      parameters:
+        - name: id
+          in: query
+          description: ID of actor
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        fname:
+                          type: string
+                        lname:
+                          type: string
+  
+  # Genres endpoints
+  /v1/genres/list:
+    get:
+      description: List all genres in the Movie Database
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+  
+  # Movies endpoints
+  /v1/movies/list:
+    get:
+      description: List all movies in the Movie Database
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        title:
+                          type: string
+                        release_date:
+                          type: string
+                          format: date
+                        director:
+                          type: string
+                        genre:
+                          type: string
+  
+  /v1/movies/get:
+    get:
+      description: Fetch a specific movie with details including actors
+      parameters:
+        - name: id
+          in: query
+          description: ID of movie
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        title:
+                          type: string
+                        release_date:
+                          type: string
+                          format: date
+                        director_id:
+                          type: integer
+                        director:
+                          type: string
+                        genre_id:
+                          type: integer
+                        genre:
+                          type: string
+                        actors:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              name:
+                                type: string
+  
+  /v1/movies/create:
+    post:
+      description: Create a new movie in the Movie Database
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+                - director_id
+                - release_date
+                - genre_id
+              properties:
+                title:
+                  type: string
+                director_id:
+                  type: integer
+                release_date:
+                  type: string
+                  format: date
+                genre_id:
+                  type: integer
+                actor_ids:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+  
+  # Watchlist endpoints
+  /v1/watchlist/list:
+    get:
+      description: List all watchlist entries in the Movie Database
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        movie_id:
+                          type: integer
+                        title:
+                          type: string
+                        user_id:
+                          type: integer
+                        user_name:
+                          type: string
+                        watch_date:
+                          type: string
+                          format: date
+                        rating:
+                          type: integer
+  
+  /v1/watchlist/user:
+    get:
+      description: Get watchlist entries for a specific user
+      parameters:
+        - name: user_id
+          in: query
+          description: ID of user
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        movie_id:
+                          type: integer
+                        title:
+                          type: string
+                        watch_date:
+                          type: string
+                          format: date
+                        rating:
+                          type: integer
+  
+  /v1/watchlist/add:
+    post:
+      description: Add a movie to a user's watchlist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - movie_id
+                - user_id
+                - watch_date
+              properties:
+                movie_id:
+                  type: integer
+                user_id:
+                  type: integer
+                watch_date:
+                  type: string
+                  format: date
+                rating:
+                  type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+  
+  /v1/watchlist/remove:
+    post:
+      description: Remove an entry from the watchlist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+  
+  /v1/watchlist/update:
+    post:
+      description: Update a watchlist entry (date and rating)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: integer
+                watch_date:
+                  type: string
+                  format: date
+                rating:
+                  type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
